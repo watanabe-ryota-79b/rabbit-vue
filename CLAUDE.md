@@ -2,7 +2,7 @@
 
 ## スタック
 
-Vue 3 / TypeScript / Vite / Pinia / Vue Router / Vitest / MSW / oxlint + ESLint / Prettier
+Vue 3 / TypeScript / Vite / Pinia / Vue Router / Vitest / MSW / Tailwind CSS / oxlint + ESLint / Prettier
 
 ## コマンド
 
@@ -22,8 +22,13 @@ npm run format     # Prettier
 - インポートは `@/` エイリアスを使う
 - コンポーネント命名: 再利用=`BaseXxx`、ページ=`XxxView`、シングルトン=`TheXxx`
 - Pinia は Setup Store 形式。ストア ID はファイル名と一致させる
-- Vue Router のコンポーネントは遅延読み込み: `() => import('@/views/XxxView.vue')`
+- Vue Router のコンポーネントは遅延読み込み: `() => import('./XxxView.vue')`
 - テストは `__tests__/XxxComponent.spec.ts`
+- `views/` は機能ごとにサブディレクトリを切る。各機能に `XxxView.vue` と `route.ts` を置き、`router/index.ts` で `route.ts` をインポートして `children` に追加する
+- **CSS は Tailwind ユーティリティクラスを基本とする**。`<style scoped>` は複雑な疑似要素など Tailwind で表現できない場合のみ使う
+- クラスが増えすぎた場合はコンポーネント分割を優先する（`@apply` より再利用性が高い）
+- `@apply` は同じクラスの組み合わせが複数箇所で繰り返す場合のみ使う
+- 任意値 (`w-[123px]` など) は極力避け、Tailwind のデザイントークン内の値を使う
 
 ## コミットルール
 
