@@ -1,0 +1,32 @@
+language: "ja"
+
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  high_level_summary_placeholder: "@coderabbitai summary"
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  path_instructions:
+    - path: "src/components/**/*.vue"
+      instructions: |
+        - `<script setup lang="ts">` を使用しているか確認
+        - `defineProps` / `defineEmits` は型引数で定義されているか確認
+        - SFC のブロック順が `<script setup>` → `<template>` → `<style scoped>` になっているか確認
+        - `<style>` に `scoped` が付いているか確認
+    - path: "src/views/**/*.vue"
+      instructions: |
+        - ファイル名が `XxxView.vue` 形式になっているか確認
+        - ページ固有のロジックは Pinia ストアに切り出すことを検討
+    - path: "src/stores/**/*.ts"
+      instructions: |
+        - Setup Store 形式 (`defineStore('id', () => { ... })`) を使用しているか確認
+        - ストア ID がファイル名と一致しているか確認
+    - path: "src/mocks/**/*.ts"
+      instructions: |
+        - `handlers.ts` 以外のファイルは直接編集しないこと
+        - モックデータは現実的な値を使用しているか確認
+
+chat:
+  auto_reply: true
