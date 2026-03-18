@@ -2,7 +2,7 @@
 
 ## スタック
 
-Vue 3 / TypeScript / Vite / Pinia / Vue Router / Vitest / MSW / Tailwind CSS / oxlint + ESLint / Prettier
+Vue 3 / TypeScript / Vite / Pinia / Vue Router / Vitest / MSW / Axios / Tailwind CSS / oxlint + ESLint / Prettier
 
 ## コマンド
 
@@ -35,6 +35,17 @@ npm run format     # Prettier
 - コミットメッセージは日本語で記述する
 - プレフィックスを付ける（`feat:`, `fix:`, `refactor:`, `test:`, `docs:` など）
 - 1コミット1変更（機能追加とリファクタリングを混在させない）
+
+## API 層 (Axios)
+
+- Axios インスタンスは `src/lib/axios.ts` の `apiClient` のみ使用する（`axios` を直接インポートしない）
+- ベースURLは `VITE_API_BASE_URL` 環境変数で切り替える（`.env` / `.env.production` / `.env.local`）
+- 共通の型（`ApiResponse<T>` など）は `src/api/types.ts` に定義する
+- API関数・Composableは `src/composables/[関心事]/` にまとめる（views への依存禁止）
+- ディレクトリ名は機能の関心事を表す名前にする（例: `fetch/`, `auth/`）
+- `src/composables/[関心事]/api.ts` にAPI関数、`src/composables/[関心事]/useXxx.ts` にComposableを置く
+- Composableは `loading` / `error` / `data` を返す
+- Views は `src/composables/` からインポートする。逆方向の依存は禁止
 
 ## モック API (MSW)
 
